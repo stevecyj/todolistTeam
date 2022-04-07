@@ -30,9 +30,10 @@ const requestListener = (req, res) => {
     postTodo(req, res, todos);
   } else if (req.url == "/todos" && req.method == "DELETE") {
     // deleteTodo.js
-    deleteTodo(res,todos);
+    deleteTodo(res, todos);
   } else if (req.url.startsWith("/todos/") && req.method == "DELETE") {
     // deleteTodo.js
+    deleteTodo(res, todos, req);
   } else if (req.url.startsWith("/todos/") && req.method == "PATCH") {
     // patchTodo.js
     patchTodo(req, res, todos);
