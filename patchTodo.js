@@ -2,6 +2,11 @@ const successHandle = require('./successHandle');
 const errorHandle = require('./errorHandle');
 
 function patchTodo(req, res, todos) {
+  let body = '';
+  req.on('data', (chunk) => {
+    body += chunk;
+  });
+
   req.on('end', ()=>{
     try{
       const id = req.url.split('/').pop();
