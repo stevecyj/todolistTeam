@@ -1,7 +1,7 @@
 const { log } = require("console");
 const http = require("http");
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 const { v4: uuidv4 } = require("uuid");
 const successHandle = require("./successHandle");
 const errHandle = require("./errorHandle");
@@ -11,17 +11,18 @@ const deleteTodo = require("./deleteTodo");
 const patchTodo = require("./patchTodo");
 const todos = [];
 
-dotenv.config({path: './config.env'});
-const DB = process.env.DATABASE.replace('<password>', process.env.DATABASE_PASSWORD);
-mongoose.connect(DB) // 連線資料庫
-  .then(()=>{
-    console.log('資料庫連線成功');
+dotenv.config({ path: "./config.env" });
+const DB = process.env.DATABASE.replace("<password>", process.env.DATABASE_PASSWORD);
+mongoose
+  .connect(DB) // 連線資料庫
+  .then(() => {
+    console.log("資料庫連線成功");
   })
-  .catch((error)=>{
+  .catch((error) => {
     console.log(error);
-  })
+  });
 
-const requestListener = (req, res) => {
+const requestListener = async (req, res) => {
   const headers = {
     "Access-Control-Allow-Headers": "Content-Type, Authorization, Content-Length, X-Requested-With",
     "Access-Control-Allow-Origin": "*",
