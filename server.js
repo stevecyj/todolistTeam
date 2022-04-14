@@ -40,7 +40,7 @@ const requestListener = async (req, res) => {
     getTodo(res, todos);
   } else if (req.url == "/todos" && req.method == "POST") {
     // postTodo.js
-    postTodo(req, res, todos);
+    postTodo(req, res);
   } else if (req.url == "/todos" && req.method == "DELETE") {
     // deleteTodo.js
     deleteTodo(res, todos);
