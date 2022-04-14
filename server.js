@@ -37,7 +37,7 @@ const requestListener = async (req, res) => {
 
   if (req.url == "/todos" && req.method == "GET") {
     // getTodo.js
-    getTodo(res, todos);
+    getTodo(req, res);
   } else if (req.url == "/todos" && req.method == "POST") {
     // postTodo.js
     postTodo(req, res);
