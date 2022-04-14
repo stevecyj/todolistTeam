@@ -1,33 +1,24 @@
+const Todos = require("./model/todo");
 const successHandle = require("./successHandle");
-const errHandle = require("./errorHandle");
+const errorHandle = require("./errorHandle");
 const { v4: uuidv4 } = require("uuid");
 
-function postTodo(req, res, todos) {
+function postTodo(req, res) {
   let body = "";
   req.on("data", (chunk) => {
     body += chunk;
   });
 
-  req.on("end", () => {
-    // 異常行為
+  req.on("end", async () => {
     try {
-      const title = JSON.parse(body).title;
-      if (title !== undefined) {
-        // console.log(title);
-        const todo = {
-          id: uuidv4(),
-          title,
-        };
-        todos.push(todo);
-        // console.log(todos);
+      const title = JSON.parse(body)?.title;
+      const newTodo = await Todos.create({
+        title,
+      });
 
-        successHandle(res, todos);
-      } else {
-        errHandle(res);
-      }
+      successHandle(res, newTodo);
     } catch (error) {
-      // console.log(error);
-      errHandle(res);
+      errorHandle(res);
     }
   });
 }
